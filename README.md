@@ -8,7 +8,7 @@ A maven archetype for creating a spring boot demo project.
 
 ## 项目的基本结构如下：
 
-![project structure](doc/images/project-structure.jpg)
+![project structure](/doc/images/project-structure.jpg)
 
 首先，这是跟普通的Maven 工程结构一样。有 src/main, src/test， 有 pom.xml 文件。
 
