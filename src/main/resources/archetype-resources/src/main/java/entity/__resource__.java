@@ -4,27 +4,24 @@
 package ${package}.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Bobby
- * @since 2019/8/11 20:30
+ * @since 1.0
  */
-@Getter
-@Setter
+
+@Data
 @Entity
-public class Department {
+@Table(name = "${resource}")
+public class ${resource} {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String name;
 
-    @OneToMany(targetEntity = Employee.class, fetch = FetchType.LAZY, mappedBy = "department")
-    private Set<Employee> employees = new HashSet<>();
 }

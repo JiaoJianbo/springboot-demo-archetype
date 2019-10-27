@@ -11,10 +11,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing // 启用 JPA AuditingEntityListener
 @EnableEncryptableProperties // 启用 Jasypt 加密配置
 @SpringBootApplication
-public class SpringbootDemo2Application {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootDemo2Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

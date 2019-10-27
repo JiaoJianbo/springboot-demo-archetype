@@ -1,7 +1,8 @@
-
+server:
+  port: ${port}
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb # In-memory (named)。数据在内存中，服务启动，在内存中创建数据库，服务关闭，数据丢失
+    url: jdbc:h2:mem:mydemodb # In-memory (named)。数据在内存中，服务启动，在内存中创建数据库，服务关闭，数据丢失
     driver-class-name: org.h2.Driver
     username: sa
     password: ENC(kkTmYOEMrB6rvYrj9+gcaw==) # sa

@@ -9,7 +9,7 @@
         <include>**/*.java</include>
       </includes>
     </fileSet>
-    <fileSet encoding="UTF-8">
+    <fileSet filtered="true" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.yml</include>
@@ -31,7 +31,7 @@
         <include>**/*.properties</include>
       </includes>
     </fileSet>
-    <fileSet encoding="UTF-8">
+    <fileSet filtered="true" encoding="UTF-8">
       <directory></directory>
       <includes>
         <include>.gitignore</include>
@@ -44,5 +44,7 @@
       <defaultValue>0.0.1-SNAPSHOT</defaultValue>
     </requiredProperty>
     <requiredProperty key="port"/>
+    <requiredProperty key="resource"/>
+    <requiredProperty key="author"/>
   </requiredProperties>
 </archetype-descriptor>
