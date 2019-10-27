@@ -14,7 +14,7 @@ target\generated-sources\archetype 目录下。我们便可以拷贝这个 arche
 首先，这是跟普通的Maven 工程结构一样。有 src/main, src/test， 有 pom.xml 文件。
 
 将来使用 archetype 工程创建出来的工程的内容都位于`src/main/resources/archetype-resources` 目录下。 
-其中`META-INF/maven/archetype-metadata.xml` 和 `projects/basic/archetype.properties` 是两个比较重要的配置文件。
+其中`META-INF/maven/archetype-metadata.xml` 和 `src/test/resources/projects/basic/archetype.properties` 是两个比较重要的配置文件。
 
 
 ## 常见配置
@@ -54,7 +54,7 @@ port=8080
 resource=Employee
 author=Bobby
 ```
-还要一点需要注意，要想使配置的变量生效，需要 `META-INF/maven/archetype-metadata.xml` 中相应的 `fileSet` 添加属性 `filtered="true"`，
+还要一点需要注意，要想使配置的变量生效，需要 `META-INF/maven/archetype-metadata.xml` 中相应的 `fileSet` 添加属性 `filtered="true"`。
 ```xml
 <fileSet filtered="true" encoding="UTF-8">
   <directory>src/main/resources</directory>
@@ -69,10 +69,9 @@ author=Bobby
 
 ```text
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-archetype-plugin:3.1.2:integration-test (default-integration-test) on project springboot-demo-archet
-ype:
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-archetype-plugin:3.1.2:integration-test (default-integration-test) on project springboot-demo-archetype:
 [ERROR] Archetype IT 'basic' failed: Missing required properties in archetype.properties: port, resource, author
-[ERROR] -> [Help 1]
+... ...
 ```
 
 ## 配置的使用
@@ -93,7 +92,8 @@ ype:
 并更新（如果以前没有会新生成一个） Maven 仓库根目录下的 `archetype-catalog.xml` 文件。如果不能自动生成，可以使用 `mvn archetype:crawl` (
 或者 `mvn org.apache.maven.plugins:maven-archetype-plugin:3.1.2:crawl`)单独生成一次。
 ```xml
-<archetype-catalog xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0 http://maven.apache.org/xsd/archetype-catalog-1.0.0.xsd"
+<archetype-catalog xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0 
+    http://maven.apache.org/xsd/archetype-catalog-1.0.0.xsd"
     xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-catalog/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <archetypes>
@@ -108,11 +108,12 @@ ype:
 ```
 
 archetype 工程安装到本地仓库后，接下来就可以使用它来初始化新的工程了。可以使用命令 `mvn archetype:generate -DarchetypeCatalog=local`，
-然后采用交互式一步一步进行创建。
+采用交互式一步一步进行创建。
 
 ![gernerate from local](/doc/images/generate-from-local.jpg)
 
 或者使用一条完整的命令
+
 ```
 mvn archetype:generate -DarchetypeGroupId=com.bravo.demo -DarchetypeArtifactId=springboot-demo-archetype -DarchetypeVersion=0.0.1-SNAPSHOT -DgroupId=com.bravo.demo -DartifactId=archetype-demo -Dport=8888 -Dauthor=Bobby -Dresource=User -DarchetypeCatalog='local' -DinteractiveMode=false
 ```
@@ -121,10 +122,14 @@ mvn archetype:generate -DarchetypeGroupId=com.bravo.demo -DarchetypeArtifactId=s
 
 ![generated project structure](/doc/images/generated-proj-structure.jpg)
 
-除了使用本地的 archetype 工程外，还可以使用远程 Maven 仓库的 archetype。只要不指定参数 `archetypeCatalog` 的值，或者指定值为 `'remote'`。
-除了支持 `'local'`, `'remote'` 外，还支持 `'internal'`。
+除了使用本地的 archetype 工程外，还可以使用远程 Maven 仓库中的 archetype，只要不指定参数 `archetypeCatalog` 的值，或者指定值为 `'remote'`。
+除了支持 `'local'`, `'remote'` 外，`archetypeCatalog` 还支持 `'internal'`。
 
 maven-archetype-plugin 插件以前的 2.x 版本还支持使用 `http://` 和 `file:///` 的方式指定 `archetypeCatalog`。但是在 3.x 版本中已经不支持了。
+
+```
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -DarchetypeGroupId=com.bravo.demo -DarchetypeArtifactId=springboot-demo-archetype -DarchetypeVersion=0.0.1-SNAPSHOT -DgroupId=com.bravo.demo -DartifactId=archetype-demo -Dport=8888 -Dauthor=Bobby -Dresource=User -DarchetypeCatalog='http://aaa/bbb/archetype-catalog.xml' -DinteractiveMode=false
+```
 
 参考：
 
