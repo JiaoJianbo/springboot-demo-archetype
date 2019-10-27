@@ -47,6 +47,7 @@ target\generated-sources\archetype 目录下。我们便可以拷贝这个 arche
 ```
 
 另外，还需要特别注意，这里配置的变量最终还要在 `src/test/resources/projects/basic/archetype.properties` 中配置，并给个默认值。
+
 ```properties
 ###自定义配置
 port=8080
@@ -55,18 +56,17 @@ author=Bobby
 ```
 还要一点需要注意，要想使配置的变量生效，需要 `META-INF/maven/archetype-metadata.xml` 中相应的 `fileSet` 添加属性 `filtered="true"`，
 ```xml
-    <fileSet filtered="true" encoding="UTF-8">
-      <directory>src/main/resources</directory>
-      <includes>
-        <include>**/*.yml</include>
-      </includes>
-    </fileSet>
+<fileSet filtered="true" encoding="UTF-8">
+  <directory>src/main/resources</directory>
+  <includes>
+    <include>**/*.yml</include>
+  </includes>
+</fileSet>
 ```
 这样，YAML 中配置的 `port` 值在初始化工程时才会被具体的变量值替换。否则，`port: ${port}`，并不会替换成对应的参数值。 
 
-
-
 因为这些值需要在插件的 `integration-test` 阶段用到，否则就会报错，
+
 ```text
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-archetype-plugin:3.1.2:integration-test (default-integration-test) on project springboot-demo-archet
@@ -122,6 +122,7 @@ mvn archetype:generate -DarchetypeGroupId=com.bravo.demo -DarchetypeArtifactId=s
 ![generated project structure](/doc/images/generated-proj-structure.jpg)
 
 除了使用本地的 archetype 工程外，还可以使用远程 Maven 仓库的 archetype。只要不指定参数 `archetypeCatalog` 的值，或者指定值为 `'remote'`。
+除了支持 `'local'`, `'remote'` 外，还支持 `'internal'`。
 
 maven-archetype-plugin 插件以前的 2.x 版本还支持使用 `http://` 和 `file:///` 的方式指定 `archetypeCatalog`。但是在 3.x 版本中已经不支持了。
 
